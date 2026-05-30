@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tucson Landscape Lighting — Redesign Concept</title>
+<style>
+  :root{
+    --bg:#0b0d10;--bg2:#11151a;--panel:#161b22;--ink:#f3efe7;--muted:#a9b0bb;
+    --gold:#e7b15a;--gold-2:#f6cd86;--line:rgba(255,255,255,.09);
+    --shadow:0 20px 60px rgba(0,0,0,.5);--maxw:1180px;
+    --font:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  h1,h2,h3{font-weight:800;line-height:1.1;letter-spacing:-.01em}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;padding:14px 24px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:.2s;white-space:nowrap}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#1a1206;box-shadow:0 8px 24px rgba(231,177,90,.28)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(231,177,90,.4)}
+  .btn-ghost{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--ink);backdrop-filter:blur(6px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+  .concept{background:#1c1206;border-bottom:1px solid rgba(231,177,90,.25);color:var(--gold-2);font-size:12.5px;text-align:center;padding:7px 16px;letter-spacing:.04em}
+
+  header.nav{position:sticky;top:0;z-index:50;transition:.3s;border-bottom:1px solid transparent}
+  header.nav.solid{background:rgba(11,13,16,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:var(--maxw);margin:0 auto;gap:20px}
+  .brand{font-weight:800;font-size:18px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px 4px rgba(231,177,90,.7)}
+  .brand small{display:block;font-size:10px;letter-spacing:.28em;color:var(--gold);font-weight:700;text-transform:uppercase}
+  nav.links{display:flex;gap:24px;font-size:14.5px;font-weight:600;color:var(--muted)}
+  nav.links a:hover{color:var(--ink)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .phone{font-weight:800;font-size:18px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .phone span{color:var(--gold)}
+  .nav-social{display:flex;gap:9px;align-items:center;padding-right:4px;border-right:1px solid var(--line);margin-right:4px}
+  .nav-social a{color:var(--muted);display:flex;transition:.2s}
+  .nav-social a:hover{color:var(--gold-2)}
+  .nav-social svg{width:19px;height:19px;fill:currentColor}
+  .hamb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.06);cursor:pointer;padding:0;flex-shrink:0}
+  .hamb span{display:block;width:20px;height:2px;background:var(--ink);margin:0 auto;transition:.25s}
+  .hamb.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamb.open span:nth-child(2){opacity:0}
+  .hamb.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-menu{display:none;flex-direction:column;background:rgba(11,13,16,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .mobile-menu.show{display:flex}
+  .mobile-menu a{padding:16px 24px;font-size:16px;font-weight:600;color:var(--ink);border-top:1px solid var(--line)}
+  .mobile-menu a.mm-call{color:var(--gold-2)}
+  @media(max-width:980px){nav.links{display:none}.nav-cta{display:none}.hamb{display:flex}.brand small{display:none}}
+
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;margin-top:-72px;padding-top:72px}
+  .hero-bg{position:absolute;inset:0;background:#000 url('https://tucsonlandscapelighting.com/wp-content/uploads/2025/08/IMG_3234-scaled.jpg') center/cover no-repeat}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,.55) 0%,rgba(11,13,16,.2) 35%,rgba(11,13,16,.85) 100%)}
+  .hero-inner{position:relative;z-index:2;padding-bottom:70px}
+  .hero h1{font-size:clamp(38px,6.4vw,76px);max-width:13ch;margin:18px 0 18px}
+  .hero h1 em{font-style:normal;color:var(--gold-2)}
+  .hero p{font-size:clamp(16px,2vw,20px);color:#e7e3da;max-width:54ch;margin-bottom:30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .trust-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;align-items:center;color:var(--muted);font-size:13.5px;font-weight:600}
+  .trust-row b{color:var(--ink)}
+  .scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;animation:bob 2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translate(-50%,8px)}}
+
+  section{padding:88px 0}
+  .sec-head{max-width:62ch;margin-bottom:44px}
+  .sec-head h2{font-size:clamp(28px,3.6vw,44px);margin:14px 0 14px}
+  .sec-head p{color:var(--muted);font-size:17px}
+  .center{text-align:center;margin-left:auto;margin-right:auto}
+
+  .ba-wrap{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);user-select:none;aspect-ratio:16/9;border:1px solid var(--line)}
+  .ba-img{position:absolute;inset:0;background-size:cover;background-position:center}
+  .ba-after{background-image:url('https://tucsonlandscapelighting.com/wp-content/uploads/2025/05/SkyLine-Driveway-AlpinePro2-scaled.jpg')}
+  .ba-before{background-image:url('https://tucsonlandscapelighting.com/wp-content/uploads/2025/05/SkyLine-Driveway-AlpinePro2-scaled.jpg');filter:brightness(.22) saturate(.4) contrast(1.08);clip-path:inset(0 50% 0 0)}
+  .ba-handle{position:absolute;top:0;bottom:0;left:50%;width:3px;background:var(--gold);box-shadow:0 0 18px rgba(231,177,90,.8);z-index:3;cursor:ew-resize}
+  .ba-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:var(--gold);color:#1a1206;display:flex;align-items:center;justify-content:center;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+  .ba-tag{position:absolute;top:16px;z-index:4;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px)}
+  .ba-tag.l{left:16px}.ba-tag.r{right:16px;color:var(--gold-2)}
+  .ba-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:5;margin:0}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .stat{background:var(--bg2);padding:30px 22px;text-align:center}
+  .stat .n{font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--gold-2);line-height:1}
+  .stat .l{color:var(--muted);font-size:13.5px;margin-top:8px;font-weight:600}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media(max-width:860px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+  .svc{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;transition:.2s}
+  .svc:hover{transform:translateY(-4px);border-color:rgba(231,177,90,.4)}
+  .svc .ic{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(231,177,90,.12);color:var(--gold-2);font-size:22px;margin-bottom:16px}
+  .svc h3{font-size:19px;margin-bottom:8px}
+  .svc p{color:var(--muted);font-size:14.5px}
+
+  .awards{background:linear-gradient(135deg,#171d12,#0c0f13);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .aw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:860px){.aw-grid{grid-template-columns:repeat(2,1fr)}}
+  .aw{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .aw img{height:90px;width:auto;border-radius:8px;background:#fff;padding:6px}
+  .aw .ribbon{font-size:40px;line-height:1}
+  .aw h3{font-size:16px;margin-top:2px}
+  .aw p{color:var(--muted);font-size:13px}
+  .aw .big{font-size:38px;font-weight:900;color:var(--gold-2);line-height:1}
+
+  .filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+  .filters button{background:transparent;border:1px solid var(--line);color:var(--muted);padding:9px 18px;border-radius:999px;font-weight:700;font-size:13.5px;cursor:pointer;transition:.2s}
+  .filters button:hover{color:var(--ink)}
+  .filters button.active{background:var(--gold);color:#1a1206;border-color:var(--gold)}
+  .gal{columns:3;column-gap:14px}
+  @media(max-width:860px){.gal{columns:2}}
+  @media(max-width:520px){.gal{columns:1}}
+  .gal figure{position:relative;margin:0 0 14px;border-radius:14px;overflow:hidden;break-inside:avoid;cursor:pointer}
+  .gal img{width:100%;transition:.5s;filter:saturate(1.05)}
+  .gal figure:hover img{transform:scale(1.06)}
+  .gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:13.5px;font-weight:700;opacity:0;transition:.3s}
+  .gal figure:hover figcaption{opacity:1}
+  .hide{display:none!important}
+
+  .quotes{columns:3;column-gap:18px}
+  @media(max-width:900px){.quotes{columns:2}}
+  @media(max-width:600px){.quotes{columns:1}}
+  .quote{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin:0 0 18px;break-inside:avoid}
+  .quote .stars{color:var(--gold);letter-spacing:3px;margin-bottom:10px;font-size:15px}
+  .quote p{font-size:14.5px;margin-bottom:14px}
+  .quote .who{font-weight:800;font-size:14px}
+  .quote .who span{color:var(--muted);font-weight:500;display:block;font-size:12.5px;margin-top:2px}
+  .gbadge{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:700;margin-top:6px}
+  .gbadge .g{font-weight:800;font-size:15px}
+  .gbadge .s{color:var(--gold);letter-spacing:2px}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:42px;align-items:center}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr}}
+  .about-photo{border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+  .about-photo img{width:100%;height:100%;object-fit:cover;min-height:280px}
+  .about-photo .cap{padding:12px 16px;background:var(--panel);font-size:13px;color:var(--muted);font-weight:600;text-align:center}
+  .about-grid p{color:#dcd8cf;font-size:16px;margin-bottom:16px}
+  .mission{border-left:3px solid var(--gold);padding:6px 0 6px 20px;margin:22px 0 4px;font-size:18px;font-style:italic;color:var(--gold-2)}
+
+  .faq-list{max-width:840px;margin:0 auto}
+  details.faq{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+  details.faq summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:700;font-size:16.5px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary .plus{color:var(--gold);font-size:22px;font-weight:400;transition:.2s;flex-shrink:0}
+  details.faq[open] summary .plus{transform:rotate(45deg)}
+  details.faq .ans{padding:0 24px 22px;color:var(--muted);font-size:15px}
+
+  .area{background:linear-gradient(135deg,#13191f,#0c0f13);border:1px solid var(--line);border-radius:20px;padding:46px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+  @media(max-width:820px){.area{grid-template-columns:1fr;padding:32px}}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--muted)}
+  .chip.hot{border-color:rgba(231,177,90,.5);color:var(--gold-2)}
+
+  .social{text-align:center}
+  .social-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .sbtn{display:flex;align-items:center;gap:12px;padding:16px 26px;border-radius:14px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:16px;transition:.2s}
+  .sbtn:hover{transform:translateY(-3px);border-color:rgba(231,177,90,.45)}
+  .sbtn svg{width:28px;height:28px;flex-shrink:0}
+  .sbtn small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+
+  .cta{background:radial-gradient(120% 140% at 50% 0%,#1c2530,#0b0d10);border-top:1px solid var(--line)}
+  .form-card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px;max-width:640px;margin:0 auto;box-shadow:var(--shadow)}
+  .form-card h3{font-size:24px;margin-bottom:6px}
+  .form-card .sub{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px}
+  .field input,.field select,.field textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;color:var(--ink);font-size:15px;font-family:var(--font)}
+  .field textarea{min-height:88px;resize:vertical;line-height:1.5}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
+  .field .opt{color:var(--muted);font-weight:500;font-size:11px;text-transform:none;letter-spacing:0}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.row2{grid-template-columns:1fr}}
+  .chips-pick{display:flex;flex-wrap:wrap;gap:8px}
+  .pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s;user-select:none}
+  .pill input{position:absolute;opacity:0;width:0;height:0}
+  .pill:has(input:checked){background:rgba(231,177,90,.16);border-color:var(--gold);color:var(--gold-2)}
+  .seg{display:flex;gap:8px;flex-wrap:wrap}
+  .seg label{flex:1;min-width:96px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:11px 8px;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer;transition:.15s}
+  .seg label:has(input:checked){background:rgba(231,177,90,.16);border-color:var(--gold);color:var(--gold-2)}
+  .seg input{position:absolute;opacity:0;width:0;height:0}
+
+  footer{padding:54px 0 120px;border-top:1px solid var(--line);background:var(--bg2)}
+  .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+  @media(max-width:760px){.foot{grid-template-columns:1fr}}
+  footer h4{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  footer a,footer p{color:var(--muted);font-size:14px;display:block;margin-bottom:7px}
+  footer a:hover{color:var(--ink)}
+  .badges{display:flex;gap:14px;align-items:center;margin-top:14px;flex-wrap:wrap}
+  .badge{font-size:11.5px;font-weight:700;border:1px solid var(--line);border-radius:8px;padding:7px 11px;color:var(--muted)}
+
+  .mobilebar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:1fr 1fr;gap:0;background:rgba(11,13,16,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+  .mobilebar a{padding:16px;text-align:center;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .mobilebar a.call{color:var(--gold-2)}
+  .mobilebar a.quote{background:var(--gold);color:#1a1206}
+  @media(max-width:760px){.mobilebar{display:grid}footer{padding-bottom:80px}}
+</style>
+</head>
+<body>
+
+<div class="concept">CONCEPT MOCKUP — designed for Tucson Landscape Lighting · built with the company's own content &amp; photos · not the live site</div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="dot"></span>
+      <span>Tucson Landscape Lighting<small>Light Your Night · Est. 1999</small></span>
+    </a>
+    <nav class="links">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <div class="nav-social">
+        <a href="https://www.facebook.com/TucsonLandscapeLighting" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.5 0-1.97.93-1.97 1.89v2.25h3.35l-.54 3.49h-2.81V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+        <a href="https://www.instagram.com/tucsonlandscapelighting" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.7 5.7 0 002.13-1.38 5.7 5.7 0 001.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.7 5.7 0 00-1.38-2.13A5.7 5.7 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 114-4 4 4 0 01-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
+      </div>
+      <a class="phone" href="tel:5209079082"><span>📞</span><span class="lbl">(520) 907-9082</span></a>
+      <a class="btn btn-gold" href="#contact">Free Estimate</a>
+    </div>
+    <button class="hamb" id="hamb" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a class="mm-call" href="tel:5209079082">📞 Call / Text · (520) 907-9082</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-inner wrap">
+    <div class="eyebrow">Tucson's Premiere Landscape Lighting Company</div>
+    <h1>From sunset to <em>spotlight.</em></h1>
+    <p>We illuminate your home, highlight the beauty of the desert, and bring your landscape to life after dark — designed, installed, and maintained right here in the Old Pueblo.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#contact">Book a Free Design Visit →</a>
+      <a class="btn btn-ghost" href="#gallery">See the Gallery</a>
+    </div>
+    <div class="trust-row">
+      <div>🏆 <b>2025 Contractor of the Year</b></div>
+      <div>⭐ <b>27 years</b> locally owned</div>
+      <div>🛡️ Licensed · Bonded · Insured <b>ROC #306909</b></div>
+    </div>
+  </div>
+  <div class="scrollcue">Scroll ↓</div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section id="difference" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">The After-Dark Difference</div>
+      <h2>Drag to see what happens when the sun goes down.</h2>
+      <p>Great landscape lighting isn't about brightness — it's about drama, safety, and curb appeal that doubles your home's presence at night.</p>
+    </div>
+    <div class="ba-wrap" id="ba">
+      <div class="ba-img ba-after"></div>
+      <div class="ba-img ba-before" id="baBefore"></div>
+      <div class="ba-tag l">Before — unlit</div>
+      <div class="ba-tag r">After dark</div>
+      <div class="ba-handle" id="baHandle"><div class="ba-knob">⇄</div></div>
+      <input class="ba-input" id="baInput" type="range" min="0" max="100" value="50" aria-label="Before and after slider">
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding-top:70px;padding-bottom:0">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="n">27</div><div class="l">Years in business</div></div>
+      <div class="stat"><div class="n">15+</div><div class="l">Tucson communities served</div></div>
+      <div class="stat"><div class="n">#1</div><div class="l">2025 Contractor of the Year</div></div>
+      <div class="stat"><div class="n">100%</div><div class="l">Licensed · Bonded · Insured</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">What We Do</div>
+      <h2>One team for the full life of your lighting system.</h2>
+      <p>Resort-style, commercial-grade AMP fixtures built for the desert — backed by a manufacturer's lifetime warranty and easy to maintain.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc"><div class="ic">✏️</div><h3>Design</h3><p>Custom lighting plans that highlight architecture, saguaros, and pathways with a free on-site consultation.</p></div>
+      <div class="svc"><div class="ic">🔌</div><h3>Installation</h3><p>Clean, professional low-voltage installs using durable commercial fixtures rated for Arizona heat.</p></div>
+      <div class="svc"><div class="ic">🛠️</div><h3>Repair</h3><p>Troubleshooting and repair of any existing system — transformers, wiring, and fixture replacement.</p></div>
+      <div class="svc"><div class="ic">🌙</div><h3>Maintenance</h3><p>Seasonal tune-ups and adjustments so your system looks its best every single night of the year.</p></div>
+      <div class="svc"><div class="ic">💡</div><h3>LED Conversion</h3><p>Upgrade old halogen systems to efficient, long-life LED and cut your energy use dramatically.</p></div>
+      <div class="svc"><div class="ic">🎨</div><h3>Art &amp; Sconces</h3><p>Accent lighting for sculptures, water features, gas lights, and wall sconces that turn your yard into a gallery.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS / CREDIBILITY -->
+<section class="awards" id="awards">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">Recognition You Can Trust</div>
+      <h2>Award-winning, accredited, and built on 27 years.</h2>
+    </div>
+    <div class="aw-grid">
+      <div class="aw">
+        <img src="https://tucsonlandscapelighting.com/wp-content/uploads/2025/12/2025-West-Coast-300x282.png" alt="2025 Contractor of the Year">
+        <h3>Contractor of the Year</h3>
+        <p>2025 · AMP Lighting, West Coast</p>
+      </div>
+      <div class="aw">
+        <img src="https://seal-tucson.bbb.org/logo/sehzbus/tucson-landscape-lighting-20089230.png" alt="BBB Accredited Business">
+        <h3>BBB Accredited Business</h3>
+        <p>Trusted reputation in Tucson</p>
+      </div>
+      <div class="aw">
+        <div class="ribbon">🛡️</div>
+        <h3>Licensed · Bonded · Insured</h3>
+        <p>Arizona Contractor · ROC #306909</p>
+      </div>
+      <div class="aw">
+        <div class="big">27</div>
+        <h3>Years in Tucson</h3>
+        <p>Locally owned &amp; operated</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">Design Gallery</div>
+      <h2>Real Tucson projects, after dark.</h2>
+      <p>Filter by what you're picturing for your own home.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="active" data-f="estate">Estates</button>
+      <button data-f="driveway">Driveways</button>
+      <button data-f="desert">Desert &amp; Up-Lighting</button>
+      <button data-f="path">Pathways &amp; Stairs</button>
+      <button data-f="water">Water Features</button>
+      <button data-f="art">Art &amp; Sconces</button>
+      <button data-f="safety">Safety &amp; Entry</button>
+      <button data-f="all">All Photos</button>
+    </div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">Reviews on Google</div>
+      <h2>Five-star service, in their words.</h2>
+      <div class="gbadge"><span class="g">G</span><span class="s">★★★★★</span> Real reviews from our Google Business Profile</div>
+    </div>
+    <div class="quotes">
+      <div class="quote"><div class="stars">★★★★★</div><p>"Johnny and Mike were a great team to work with. We did a fairly large lighting upgrade to our home and they excelled at designing and installing the system. It looks absolutely beautiful and I feel like I live at a resort now. Also very quick with the installation and high quality fixtures. Can't recommend this company enough!"</p><div class="who">Christina Brannon<span>★ Google review · Tucson</span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"First rate all the way. Mike gave us an estimate and ideas on what would work best. He recommended we do less than what we had planned and it worked out great. They communicated throughout the project, showed up on time and completed the job when promised. They were definitely the right choice, and working with Mike and Quinn was a pleasure."</p><div class="who">John G.<span>★ Google review · Local Guide</span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Everything was handled professionally! The estimate walkthrough was very professional and personal, as we had issues with pets and potential snakes that they addressed. They also updated our dated and somewhat burned-out lighting. Amazing!!!"</p><div class="who">Katie Bohnert<span>★ Google review · Tucson</span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"I can't say enough about Jim and Tucson Landscape Lighting! From start to finish he made the process easy and was involved every step of the way to make sure everything was perfect. He has a great eye for where to place the lighting — it is very much an art. For anyone looking to support a truly wonderful family-run and operated local business, Tucson Landscape Lighting is exactly what you are looking for!"</p><div class="who">Jessica L.<span>★ Google review · Local Guide</span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Johnny came out and we spoke about the type of lighting we wanted in our arena. He recommended an LED setup. It turned out great — we are very happy with his services. He was very helpful, efficient, and knowledgeable. We will continue to do business with Tucson Landscape Lighting and would highly recommend them to anyone looking to upgrade or add lighting."</p><div class="who">Ashley Miller<span>★ Google review · Tucson</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="https://tucsonlandscapelighting.com/wp-content/uploads/2026/05/IMG_2523-scaled-e1778561034658-1024x578.jpg" alt="Co-owners Johnny Lohrman and Mike Lopez">
+        <div class="cap">Co-owners Johnny Lohrman &amp; Mike Lopez</div>
+      </div>
+      <div>
+        <div class="eyebrow">About Us</div>
+        <h2 style="font-size:34px;margin:14px 0 18px">Locally owned and operated for 27 years.</h2>
+        <p>Tucson Landscape Lighting has called the Old Pueblo home for nearly three decades. Co-owners Johnny Lohrman and Mike Lopez lead a team that designs, installs, maintains, and repairs low-voltage landscape lighting across Southern Arizona — from the Catalina Foothills and Dove Mountain to Oro Valley, SaddleBrooke, and now the Phoenix area.</p>
+        <p>As a Licensed, Bonded and Insured Arizona contractor (ROC #306909), we use resort-style, commercial-grade AMP fixtures and transformers backed by a manufacturer's lifetime warranty — built to last in the desert and easy to maintain for years to come.</p>
+        <div class="mission">"We will provide the highest quality customer service and premium quality lighting options to the Arizona community with excellence, integrity, and respect."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="eyebrow">Good to Know</div>
+      <h2>Frequently asked questions.</h2>
+    </div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section id="area">
+  <div class="wrap">
+    <div class="area">
+      <div>
+        <div class="eyebrow">Serving The Old Pueblo</div>
+        <h2 style="font-size:32px;margin:14px 0 10px">From the Foothills to Phoenix.</h2>
+        <p style="color:var(--muted)">Locally owned and operated, now expanding into the Phoenix area. Tap your neighborhood for a free estimate.</p>
+        <div class="chips">
+          <span class="chip hot">Dove Mountain</span>
+          <span class="chip hot">Catalina Foothills</span>
+          <span class="chip hot">Stone Canyon</span>
+          <span class="chip">Skyline Country Club</span>
+          <span class="chip">Casas Adobes</span>
+          <span class="chip">SaddleBrooke</span>
+          <span class="chip">Marana</span>
+          <span class="chip">Oro Valley</span>
+          <span class="chip">Vail</span>
+          <span class="chip">Sahuarita</span>
+          <span class="chip">Corona de Tucson</span>
+          <span class="chip">Green Valley</span>
+          <span class="chip">Casa Grande</span>
+          <span class="chip">Phoenix area</span>
+        </div>
+      </div>
+      <div style="border-radius:16px;overflow:hidden;border:1px solid var(--line)">
+        <img src="https://tucsonlandscapelighting.com/wp-content/uploads/2025/08/IMG_3172-scaled.jpg" alt="Tucson estate lighting" style="width:100%;height:100%;object-fit:cover;min-height:260px">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL CONNECT -->
+<section class="social" style="background:var(--bg2);padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Stay In Touch</div>
+    <h2 style="font-size:30px;margin:14px 0 6px">See our latest work, night after night.</h2>
+    <p style="color:var(--muted)">Connect with us on Facebook and follow us on Instagram for fresh project photos.</p>
+    <div class="social-btns">
+      <a class="sbtn" href="https://www.facebook.com/TucsonLandscapeLighting"><svg viewBox="0 0 24 24" style="fill:#1877F2" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.5 0-1.97.93-1.97 1.89v2.25h3.35l-.54 3.49h-2.81V24C19.61 23.1 24 18.1 24 12.07z"/></svg><span>Connect on Facebook<small>@TucsonLandscapeLighting</small></span></a>
+      <a class="sbtn" href="https://www.instagram.com/tucsonlandscapelighting"><svg viewBox="0 0 24 24" style="fill:#E4405F" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 01-1.38-.9 3.7 3.7 0 01-.9-1.38c-.16-.43-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.7 5.7 0 002.13-1.38 5.7 5.7 0 001.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.7 5.7 0 00-1.38-2.13A5.7 5.7 0 0019.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zM12 16a4 4 0 114-4 4 4 0 01-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg><span>Follow on Instagram<small>@tucsonlandscapelighting</small></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact" class="cta">
+  <div class="wrap">
+    <div class="form-card">
+      <h3>Get your free estimate</h3>
+      <p class="sub">Tell us about your project and we'll come out for a free design visit — usually within a few days. The more you share, the more dialed-in your estimate.</p>
+
+      <div class="row2">
+        <div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="field"><label>Phone</label><input type="tel" placeholder="(520) 000-0000"></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+        <div class="field"><label>Neighborhood</label><input type="text" placeholder="e.g. Dove Mountain"></div>
+      </div>
+
+      <div class="field">
+        <label>What would you like to light? <span class="opt">choose any</span></label>
+        <div class="chips-pick">
+          <label class="pill"><input type="checkbox">Driveway</label>
+          <label class="pill"><input type="checkbox">Front entry &amp; facade</label>
+          <label class="pill"><input type="checkbox">Pathways &amp; steps</label>
+          <label class="pill"><input type="checkbox">Trees &amp; cactus</label>
+          <label class="pill"><input type="checkbox">Pool &amp; water features</label>
+          <label class="pill"><input type="checkbox">Patio &amp; outdoor living</label>
+          <label class="pill"><input type="checkbox">Sculptures &amp; art</label>
+          <label class="pill"><input type="checkbox">Security &amp; safety</label>
+          <label class="pill"><input type="checkbox">Whole property</label>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Project type</label>
+          <select><option>New installation</option><option>Add to existing system</option><option>Repair / troubleshooting</option><option>LED conversion</option><option>Maintenance plan</option><option>Art &amp; specialty lighting</option><option>Not sure yet</option></select>
+        </div>
+        <div class="field"><label>Property scope</label>
+          <select><option>A few key features</option><option>Medium — front yard or back</option><option>Large — full property</option><option>Estate / commercial</option><option>Not sure</option></select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Do you have a system now?</label>
+        <div class="seg">
+          <label><input type="radio" name="sys">Starting fresh</label>
+          <label><input type="radio" name="sys">Expanding existing</label>
+          <label><input type="radio" name="sys">Needs repair</label>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Timeline</label>
+          <select><option>As soon as possible</option><option>Within 1–3 months</option><option>Just exploring</option></select>
+        </div>
+        <div class="field"><label>Budget range <span class="opt">optional</span></label>
+          <select><option>Not sure — help me plan</option><option>Under $2,000</option><option>$2,000 – $5,000</option><option>$5,000 – $10,000</option><option>$10,000+</option></select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Project details <span class="opt">optional — photos help us a ton</span></label>
+        <textarea placeholder="Tell us what you have in mind, anything we should know (pets, gate codes, HOA), or paste a link to photos..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Best way to reach you</label>
+        <div class="seg">
+          <label><input type="radio" name="contact">Call</label>
+          <label><input type="radio" name="contact">Text</label>
+          <label><input type="radio" name="contact">Email</label>
+        </div>
+      </div>
+
+      <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:8px">Request My Free Estimate →</button>
+      <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:14px">Prefer to talk? Call or text <b style="color:var(--gold-2)">(520) 907-9082</b></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="brand" style="margin-bottom:12px"><span class="dot"></span><span>Tucson Landscape Lighting</span></div>
+      <p>Let us "light your night." Professional design, installation, maintenance, and repair of landscape lighting across Southern Arizona.</p>
+      <div class="badges">
+        <span class="badge">🏆 Contractor of the Year 2025</span>
+        <span class="badge">ROC #306909</span>
+        <span class="badge">BBB Accredited</span>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About Us</a>
+      <a href="#faq">FAQ</a>
+      <a href="#area">Service Area</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="tel:5209079082">📞 (520) 907-9082</a>
+      <a href="#contact">✉️ Info@TucsonLandscapeLighting.com</a>
+      <a href="https://www.facebook.com/TucsonLandscapeLighting">Connect on Facebook</a>
+      <a href="https://www.instagram.com/tucsonlandscapelighting">Follow on Instagram</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:34px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:18px">© 2026 Tucson Landscape Lighting · Concept design mockup</div>
+</footer>
+
+<div class="mobilebar">
+  <a class="call" href="tel:5209079082">📞 Call / Text</a>
+  <a class="quote" href="#contact">Free Estimate</a>
+</div>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40));
+
+  const input=document.getElementById('baInput'),
+        before=document.getElementById('baBefore'),
+        handle=document.getElementById('baHandle');
+  function setBA(v){before.style.clipPath=`inset(0 ${100-v}% 0 0)`;handle.style.left=v+'%';}
+  input.addEventListener('input',e=>setBA(e.target.value));
+  setBA(50);
+
+  const B='https://tucsonlandscapelighting.com/wp-content/uploads/';
+  const items=[
+    ['2025/05/SkyLine-Driveway-AlpinePro-scaled.jpg','SkyLine driveway — AlpinePro','driveway'],
+    ['2025/05/SkyLine-Driveway-AlpinePro2-scaled.jpg','SkyLine driveway — AlpinePro','driveway'],
+    ['2025/05/SkyLine-Driveway-AlpinePro3-scaled.jpg','SkyLine driveway — AlpinePro','driveway'],
+    ['2025/01/IMG_0057-scaled.jpg','Driveway lights','driveway'],
+    ['2024/09/IMG_5818.jpeg','Driveway lights','driveway'],
+    ['2024/09/IMG_5811.jpeg','Driveway lights','driveway'],
+    ['2025/02/processed-1D410118-F70A-4D22-8B70-A87DAB12DD5A.jpeg','Driveway with Palo Verde','driveway'],
+    ['2025/02/processed-BBA251E6-E5FE-4A92-B468-D93F12B7F73D.jpeg','MagPro driveway','driveway'],
+    ['2025/05/20250208_184123-scaled.jpg','Ranch driveway','driveway'],
+    ['2025/05/20250210_185544-scaled.jpg','Oro Valley driveway','driveway'],
+    ['2025/05/20250210_185605-scaled.jpg','Oro Valley — MagPro','driveway'],
+    ['2024/11/3687922547468309897.jpg','Saguaro up-lighting','desert'],
+    ['2024/09/IMG_0003.jpeg','Up-lighting','desert'],
+    ['2025/01/IMG_6973-scaled.jpg','Yucca accent','desert'],
+    ['2025/02/processed-3B233506-D4D4-4C85-BD06-4733C55C8599.jpeg','Palo Verde up-lighting','desert'],
+    ['2025/02/processed-FB408D70-663C-4B86-8780-668D661D1D66.jpeg','Saguaro up-lighting','desert'],
+    ['2025/02/processed-1957420C-1831-405F-A8A7-10996694F04F.jpeg','Blue agave & saguaro, full moon','desert'],
+    ['2025/05/20250320_185922-scaled.jpg','Mexican fence post cactus','desert'],
+    ['2025/05/20250320_185629-scaled.jpg','Oro Valley — AlpinePros','desert'],
+    ['2025/05/20250320_185609-scaled.jpg','Oro Valley cactus island','desert'],
+    ['2024/09/IMG_2275.jpeg','Step lights','path'],
+    ['2024/09/IMG_6990.jpeg','Pathway lights','path'],
+    ['2025/03/IMG_2847-scaled.jpg','Stair lights','path'],
+    ['2025/03/IMG_2707-scaled.jpg','Stair lights','path'],
+    ['2025/02/processed-051C36FB-AE33-496F-977E-48E0F20B2202.jpeg','Walking path','path'],
+    ['2025/05/20250224_201845-scaled.jpg','Ritz Dove Mt. path lights','path'],
+    ['2025/05/20250224_201855-scaled.jpg','Ritz Dove Mt. path lights','path'],
+    ['2025/05/20250224_201738-scaled.jpg','Ritz Dove Mt. path lights','path'],
+    ['2025/05/20250224_210300-scaled.jpg','Ritz Dove Mt. path lights','path'],
+    ['2025/05/20250224_210101-scaled.jpg','Ritz Dove Mt. path lights','path'],
+    ['2025/05/20250224_210324-scaled.jpg','Ritz Dove Mt. path lights','path'],
+    ['2024/09/IMG_5795.jpeg','Water feature','water'],
+    ['2025/03/IMG_2836-scaled.jpg','Fountain lighting','water'],
+    ['2024/09/IMG_1700.jpeg','Pool area lighting','water'],
+    ['2025/01/IMG_5698-scaled.jpg','Puma sculpture accent','art'],
+    ['2025/03/IMG_0092-scaled.jpg','Art up-lighting','art'],
+    ['2024/09/IMG_3945-scaled.jpeg','Wall splash & spot lights','art'],
+    ['2025/03/IMG_2370-scaled.jpg','Gas light','art'],
+    ['2025/03/IMG_0098-scaled.jpg','Artist pots','art'],
+    ['2025/03/IMG_0091-scaled.jpg','Sculpture art lighting','art'],
+    ['2025/03/IMG_3010-scaled-e1742146226157.jpg','Pier-style light','art'],
+    ['2025/03/IMG_3007-scaled.jpg','Pier-style light','art'],
+    ['2024/09/IMG_1037.jpeg','Entry safety lighting','safety'],
+    ['2024/09/IMG_1047.jpeg','Entryway safety lights','safety'],
+    ['2024/09/IMG_5814.jpeg','Spot lights','safety'],
+    ['2024/12/20241218_181146-scaled.jpg','SaddleBrooke estate','estate'],
+    ['2024/12/20241218_181137-scaled.jpg','SaddleBrooke estate','estate'],
+    ['2024/12/20241218_181122-scaled.jpg','SaddleBrooke estate','estate'],
+    ['2024/12/20241022_190338-scaled.jpg','Marana home','estate'],
+    ['2024/09/IMG_3235.jpeg','HOA — Tucson','estate'],
+    ['2024/09/IMG_0002.jpeg','Back lighting','estate'],
+    ['2024/09/IMG_3483.jpeg','Tucson residence','estate'],
+    ['2025/05/20250208_185851-scaled.jpg','Ranch front','estate'],
+    ['2025/05/20250208_185931-scaled.jpg','Ranch gate','estate'],
+    ['2025/08/IMG_3222-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3225-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3227-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3228-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3230-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3231-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3232-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3233-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_1816-scaled-e1778557523537.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3167-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3176-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3178-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3193-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3196-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3204-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3205-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3206-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3213-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3215-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3217-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3218-scaled.jpg','Dove Mountain estate','estate'],
+    ['2025/08/IMG_3221-scaled.jpg','Dove Mountain estate','estate'],
+  ];
+  const gal=document.getElementById('gal');
+  gal.innerHTML=items.map(([src,cap,cat])=>
+    `<figure data-cat="${cat}"><img loading="lazy" src="${B}${src}" alt="${cap}"><figcaption>${cap}</figcaption></figure>`
+  ).join('');
+  function applyFilter(f){
+    document.querySelectorAll('#gal figure').forEach(fig=>{
+      fig.classList.toggle('hide',f!=='all'&&fig.dataset.cat!==f);
+    });
+  }
+  document.getElementById('filters').addEventListener('click',e=>{
+    if(e.target.tagName!=='BUTTON')return;
+    document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));
+    e.target.classList.add('active');
+    applyFilter(e.target.dataset.f);
+  });
+  applyFilter('estate');
+
+  const faqs=[
+    ['How much is a new landscape lighting system?','Cost is driven by the size and number of transformers, the style and number of fixtures, the length of the lighting run, and your existing landscape. Investing in a high-quality transformer and fixtures is key — ours carry a manufacturer\'s lifetime warranty.'],
+    ['How much does it cost to repair my system?','If your current system isn\'t working, we can help. Our service charge to diagnose the issue is $200, which includes the first hour of repair.'],
+    ['Does landscape lighting improve safety?','Yes. Lighting walkways, paths, pool areas, steps, and stairs keeps your property well lit and safe to navigate after dark.'],
+    ['Why low-voltage lighting?','Low-voltage systems are safer to install and maintain with a lower risk of electrical shock. They\'re also more cost-effective, energy efficient, and flexible than high-voltage systems.'],
+    ['How far apart should path lights be spaced?','Path lights are generally spaced six to eight feet apart, though they can be placed closer together for a more vivid effect.'],
+    ['How do I choose focal points?','Think about the mood you want to create and the function of the light. Walk your property and pick out focal points — a garden, a sculpture, or a fountain.'],
+    ['What are the benefits of landscape lighting?','It can increase property value, improve curb appeal, and add safety. Good lighting also helps deter intruders and makes it easier to see people around your property.'],
+    ['How do I size the transformer?','Add up the wattage of each light and multiply by 1.25. For example, 40 lights at 3 watts each is 120 watts, so you\'d want a transformer rated at least 150 watts.'],
+    ['How do I maintain my lighting?','Clean the internal reflectors and lenses to remove dirt and debris, trim back vegetation blocking the light, and check fixtures for corrosion, dents, or cracks.'],
+  ];
+  document.getElementById('faqList').innerHTML=faqs.map(([q,a])=>
+    `<details class="faq"><summary>${q}<span class="plus">+</span></summary><div class="ans">${a}</div></details>`
+  ).join('');
+
+  const hamb=document.getElementById('hamb'),mobileMenu=document.getElementById('mobileMenu');
+  hamb.addEventListener('click',()=>{const o=hamb.classList.toggle('open');mobileMenu.classList.toggle('show',o);});
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{hamb.classList.remove('open');mobileMenu.classList.remove('show');}));
+</script>
+</body>
+</html>
