@@ -2,3 +2,7 @@ cd "path/to/Tucson Landscape Lighting/tll-website"
 git init
 git add .
 git commit -m "TLL concept site"
+
+git remote add origin https://github.com/YOURNAME/tll-website.git
+git branch -M main
+git push -u origin main
